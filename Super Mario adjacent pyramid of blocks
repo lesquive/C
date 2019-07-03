@@ -1,0 +1,92 @@
+/* 
+
+This code is written to solve the Super Mario adjacent pyramid of blocks, for CS50 course.
+
+It only allows int values from 1-8 to make each pyramid.
+
+$ ./mario
+Height: 5
+    # = j < x 
+   ## = j < x-1
+  ### = j < x-2
+ #### = j < x-3
+##### = j < x-4
+
+$ ./mario
+Height: 8
+       #
+      ##
+     ###
+    ####
+   #####
+  ######
+ #######
+########
+
+$ ./mario
+Height: 7
+      #  #
+     ##  ##
+    ###  ###
+   ####  ####
+  #####  #####
+ ######  ######
+#######  #######
+$ 
+
+*/
+
+#include <cs50.h>
+#include <stdio.h>
+
+int x; // allow the user to decide just how tall the pyramid should be by first prompting them for a positive integer between 1-8.
+int z = 0; //counter to decide if blank space or # should be printed at each spot. For this we use the formula j < x, j < x-1, j < x-2 etc.
+
+char blocks = '#';
+
+int main(void)
+{
+    
+	do {
+		
+	x = get_int ("Height: "); // prompt the user for a value.
+		
+	}
+		
+	while (x < 1 || x > 8 ); // keep prompting the user for a value is it isn't between 1 - 8.
+	   
+	for (int i = 0; i < x ; i++) { //Counter for each line.
+			 
+		z++; // increase counter to decide if blank space or #.
+			 
+		for (int j = 0; j < x; j++) { //Counter for each spot in the first pyramid.
+				 
+			if (j < (x-z)) { //If this condition is matched, print a blank space.
+						 
+				printf(" ");
+
+			}
+					 
+			else { //Else print a #.
+						 
+				printf("#");
+					 
+			}
+
+		}
+			 
+		printf("  "); //Print two spaces.
+		
+		for (int j = 0; j < x; j++) { //Counter for each spot after the initial pyramid is done.
+		
+			if (j <= i) { //If this condition is matched, print #
+				
+				printf("#");
+				
+			}
+	 
+		}
+		
+		printf("\n"); //Hit enter to go to the next line.
+	}
+}
