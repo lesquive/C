@@ -1,0 +1,45 @@
+/* This code is written to solve the Super Mario right-aligned pyramid of blocks, for CS50 course */
+
+#include <cs50.h>
+#include <stdio.h>
+
+int x;
+int z = 0;
+
+char blocks = '#';
+
+int main(void)
+{
+    
+	do {
+		
+	x = get_int ("Height: ");
+		
+	}
+		
+	while (x < 1 || x > 8 );
+	   
+	for (int i = 0; i < x ; i++) {
+			 
+		z++;
+			 
+		for (int j = 0; j < x; j++) {
+				 
+			if (j < (x-z)) {
+						 
+				printf(" ");
+
+			}
+					 
+			else {
+						 
+				printf("#");
+					 
+			}
+
+		}
+			 
+		printf("\n");
+	 
+	}
+}
