@@ -1,4 +1,29 @@
-/* This code is written to solve the Super Mario right-aligned pyramid of blocks, for CS50 course */
+/* 
+
+This code is written to solve the Super Mario right-aligned pyramid of blocks, for CS50 course.
+
+It only allows int values from 1-8 to make the pyramid.
+
+$ ./mario
+Height: 5
+    #
+   ##
+  ###
+ ####
+#####
+
+$ ./mario
+Height: 8
+       #
+      ##
+     ###
+    ####
+   #####
+  ######
+ #######
+########
+
+*/
 
 #include <cs50.h>
 #include <stdio.h>
