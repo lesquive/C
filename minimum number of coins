@@ -1,0 +1,70 @@
+/*
+
+program that first asks the user how much change is owed and then prints the minimum number of coins with which that change can be made.
+
+For example is 56 cents are due in change, the result is 4 = 2 quarters, 1 nickel, and 1 penny. 
+
+$ ./cash
+Change owed:1
+4 
+
+$ ./cash
+Change owed:.99
+9
+
+*/
+
+#include <stdio.h>
+#include <cs50.h>
+#include <math.h> //math library to be able to use round function. 
+
+float x;
+int cents, coins; //two variables to keep track of total amount of cents and how many coins were needed to reach 0 cents.
+
+int main (void){
+    
+    do {
+        
+        x = get_float("Change owed:"); // prompt the user for a value.
+        
+    }
+    
+    while ( x <= 0); //anything above 0 cents change
+    
+    cents = round(x * 100);
+
+    while (((cents - 25) && (cents > 25)) || (cents == 25)) { //loop while cents is divisible by 25 
+        
+        cents = cents - 25; //subtract 25 and try again
+        
+        coins++; // add 1 to coin count and try again
+        
+    }
+    
+    while (((cents - 10) && (cents > 10)) || (cents == 10)) { //loop while cents is divisible by 10
+        
+        cents = cents - 10; //subtract 10 and try again
+        
+        coins++; // add 1 to coin count and try again
+        
+    }
+    
+    while (((cents - 5) && (cents > 5)) || (cents == 5)) { //loop while cents is divisible by 5
+        
+        cents = cents - 5; //subtract 5 and try again
+        
+        coins++; // add 1 to coin count and try again
+        
+    }
+    
+    while (((cents - 1) && (cents > 1)) || (cents == 1)) { //loop while cents is divisible by 1
+        
+        cents = cents - 1; //subtract 1 and try again
+        
+        coins++; // add 1 to coin count and try again
+        
+    }
+    
+    printf("%d\n", coins); //print total amount of coins used during all loops.
+    
+}
