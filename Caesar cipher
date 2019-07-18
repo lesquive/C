@@ -1,0 +1,169 @@
+/*
+
+This code was created by Luis Jose Esquivel Blanco on July 17th 2019.
+
+Caesar used to “encrypt” confidential messages by shifting each letter by some number of places.
+
+Anyone that knew the number used to shift the letters could shift all the letters back, and decrypt the secret message.
+
+Code pseudocode:
+
+1)The first thing we need to do is count the number of arguments that the user inputs, including the name of the script.
+2)If the user inputs just 1 value, return an error.
+3)If the user inputs more than 2 values, return an error.
+4)If the user inputs anything that is not a number in the 2nd value, return an error.
+5)Take the number in the 2nd argument, and save it to memory. 
+6)Ask the user for input. This input should be a string, meaning a sentence or a word. 
+7)For every alphabetical character in the sentence or word given, assign a number to each letter starting from 0 to 25 where 0 is A and Z is 25
+8)For every alphabetical character in the sentence or word given, increase each individual character by the number given in step 5.
+9)If the number is greater than 25, loop back starting from 0.
+10)Print the next cipher text to screen. 
+
+Examples of the code when it gives an error due to wrong syntax:
+
+$ ./caesar luis
+Usage: ./caesar key
+$ ./caesar luis 3
+Usage: ./caesar key
+$ ./caesar 3x
+Usage: ./caesar key
+$ ./caesar 3 3
+Usage: ./caesar key
+$ ./caesar
+Usage: ./caesar key
+$ 
+
+Examples of the code when it works correctly:
+
+$ ./caesar 1
+plaintext: hello
+ciphertext: ifmmp
+$ ./caesar 13
+plaintext: hello, world!
+ciphertext: uryyb, jbeyq!
+$ ./caesar 13
+plaintext: Be sure to drink your Ovaltine
+ciphertext: Or fher gb qevax lbhe Binygvar
+$ 
+
+*/
+
+#include <cs50.h>
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+#include <stdlib.h> // used with isdigit & atoi function. 
+
+int main(int argc, string argv[])
+{
+    
+    if (argc == 1){ //confirm that the user is inputting atleast 2 arguements including the name of the script. 
+        
+		printf("Usage: ./caesar key\n"); //if the user inputs just 1 value, return an error.
+		return 1;
+        
+    }
+
+	int letters_in_string; // create an int value to be True or false (1 or 0).
+    
+	int x = strlen(argv[1]); // create an int value to keep track of the 2nd arguements length.
+
+	string z = argv[1]; // create a string that is the 2nd arguement. 
+
+	for (int i = 0; i < x ; i++) { // interate through each character in the 2nd arguement 
+			   
+		if (isdigit(z[i])) {
+					
+			letters_in_string = false; // if the character is a digit, set the int value of letters_in_string to false.
+					
+		}
+				
+		else {
+					
+			letters_in_string = true; // if the character is not a digit, set the int value of letters_in_string to True.
+					
+			i = x; // exit the for loop. Critiria doesn't match, thus set letters_in_string to '1' for True. 
+			
+		}
+				
+	}
+	
+	if ((argc == 2) && (letters_in_string == 0)) { //If the user input the correct sintax, no letters and correct amount of arguments.
+		
+        char lower[26] = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'}; // Array for lower case letters.
+        char upper[26] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'}; // Array for upper case letters.
+        
+        string plaintext = get_string ("plaintext: "); // prompt the user for a value.
+        
+        int stringcount = strlen(plaintext); //create an int value to keep track of the length of the plain text.
+		
+		int intvalue = atoi (z); // atoi function to convert string z into an intiger representation for comparison. This is to turn the second argument from char to int.
+		
+		string newciphertext [stringcount]; // string array variable that is the same length as stringcount, so that the cipher text string is the same length as the original text.
+        
+        for (int i = 0; i <= stringcount; i++) { //counter to go through all the characters in the pain text.
+            
+            for (int j = 0; j < 26; j++){ // counter to go through all the indexes in the array 'lower' or 'upper'.
+                
+                if(plaintext[i] == lower[j]){ //if the character in the string, matches a character in the arra'lower' or 'upper'.
+					
+					int cipher = (j + intvalue) % 26; // int variable that holds any index that needs to loop back in the array. 
+					
+					if(j + intvalue < 26 ) { // if the index j + the 2nd arguement int is less than 26.
+						
+						plaintext[i] = lower[j+intvalue]; // from the 'plaintext' array at index i, replace the value with index j+intvalue at the 'lower' array.
+						
+						break;
+						
+					}
+					
+					else { // if the index j + the 2nd arguement int is greater than 26.
+						
+						plaintext[i] = lower[cipher]; // from the 'plaintext' array at index i, replace the value with index cipher at the 'lower' array.
+						
+						break;
+
+					}
+                    
+                }
+				
+				else if(plaintext[i] == upper[j]){ // bad code, i did a copy/paste :)
+					
+					int cipher = (j + intvalue) % 26;
+					
+					if(j + intvalue < 26 ) {
+						
+						plaintext[i] = upper[j+intvalue];
+						
+						break;
+						
+					}
+					
+					else {
+						
+						plaintext[i] = upper[cipher];
+						
+						break;
+
+					}
+                    
+                }
+
+                
+            }
+  
+        }
+		
+		printf("ciphertext: %s\n", plaintext); // print the new array of 'plaintext' that was replaced with new values using the counter that was provided by the user.
+		
+	}
+	
+	else { //If the user input the wrong sintax, using letters or not using the correct amount of arguments; return an error.
+        
+		printf("Usage: ./caesar key\n");
+		return 1;
+        
+    }
+
+}
+
